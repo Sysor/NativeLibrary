@@ -12,6 +12,7 @@ import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import java.util.jar.Manifest
 import android.R
+import android.content.ContentValues.TAG
 
 import android.content.DialogInterface
 import android.os.Build
@@ -20,13 +21,15 @@ import androidx.appcompat.app.AlertDialog
 import android.telephony.TelephonyManager
 import androidx.annotation.RequiresApi
 import java.security.Security
+import android.content.pm.ApplicationInfo
+import android.util.Log
+import android.content.pm.PackageInfo
+
+
+
 
 
 class MainActivity : AppCompatActivity() {
-
-
-
-
 
 
     private lateinit var binding: ActivityMainBinding
@@ -47,17 +50,10 @@ class MainActivity : AppCompatActivity() {
 
         binding.button2.setOnClickListener {
 
+            binding.sampleText.text = applicationList(this).toString()
 
         }
-
-
-
-
-        // Example of a call to a native method
-
     }
-
-
 
 
     /**
@@ -65,7 +61,9 @@ class MainActivity : AppCompatActivity() {
      * which is packaged with this application.
      */
 
-    external fun androidID(context:Context):String
+    external fun androidID(context: Context): String
+
+    external fun applicationList(context: Context): String
 
 
     companion object {
@@ -75,3 +73,10 @@ class MainActivity : AppCompatActivity() {
         }
     }
 }
+
+data class appList(
+    var name: String,
+    var size: Int,
+    var isSystem: Boolean
+)
+
